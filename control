@@ -1,0 +1,10 @@
+Package: com.waa.wechathook
+Name: WeChatHook
+Version: 1.0-0
+Description: Hook for WeChat
+Maintainer: Waa
+Author: Waa
+Homepage: https://github.com/iamwaa
+Section: Tweaks
+Architecture: iphoneos-arm
+Depends: mobilesubstrate

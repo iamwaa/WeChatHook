@@ -1,0 +1,295 @@
+控件用法说明
+通用参数
+ - title (NSString)：主标题。
+示例：@"启用分组栏圆角"
+ - subtitle (NSString, 可选)：副标题。
+示例：@"调整ThemeBox的分组栏为圆角风格"
+ - dependsOn (NSString / NSArray, 可选)：依赖的开关键，依赖项开启时才显示。
+示例：@"EnableLeftSwipeReply" 或 @[@"EnableFeatureA", @"EnableFeatureB"]
+ - parent (NSString, 可选)：父页面键。
+示例：@"RadiusSettings"
+ - subpageSection (NSString, 可选)：子页面分组名称。
+示例：@"圆角设置"
+ - icon (NSString, 可选)：系统图标。
+示例：@"clock"
+ - color (NSString, 可选)：主标题颜色。
+示例：@"systemRedColor"
+
+1. 开关（switch）
+说明
+用于启用或禁用某个功能的布尔值设置项，显示为 UISwitch 控件。
+
+参数
+ - key (NSString)：配置项键，用于保存开关状态（YES/NO）。
+示例：@"EnableGroupBarRadius"
+ - defaultValue (NSNumber, 可选)：默认开关状态，默认为 NO。
+示例：@(YES)
+
+使用实例
+@{@"title": @"启用分组栏圆角",
+  @"subtitle": @"调整ThemeBox的分组栏为圆角风格",
+  @"type": @"switch",
+  @"key": @"EnableGroupBarRadius",
+  @"parent": @"RadiusSettings",
+  @"subpageSection": @"圆角设置",
+  @"icon": @"rectangle"}
+
+---
+
+2. 滑块（slider）
+说明
+用于设置数值范围，显示为 UISlider，副标题显示当前值（整数或百分比）。
+
+参数
+ - key (NSString)：配置项键。
+示例：@"BarRadius"
+ - minValue (NSNumber)：最小值。
+示例：@(0)
+ - maxValue (NSNumber)：最大值。
+示例：@(30)
+ - defaultValue (NSNumber, 可选)：默认值，默认为 minValue。
+示例：@(18)
+ - showPercentage (NSNumber, 可选)：是否以百分比格式显示，默认为 NO。
+示例：@(NO)
+
+使用实例
+@{@"title": @"圆角度",
+  @"type": @"slider",
+  @"key": @"BarRadius",
+  @"minValue": @(0),
+  @"maxValue": @(30),
+  @"defaultValue": @(18),
+  @"showPercentage": @(NO),
+  @"dependsOn": @"EnableGroupBarRadius",
+  @"parent": @"RadiusSettings",
+  @"subpageSection": @"圆角设置",
+  @"icon": @"slider.horizontal.below.rectangle"}
+
+---
+
+3. 文本框（text）
+说明
+用于输入文本，显示为 UITextField。
+
+参数
+ - key (NSString)：配置项键。
+示例：@"BarBadgeName"
+ - defaultValue (NSString, 可选)：默认值，默认为空。
+示例：@"分组1#分组2"
+
+使用实例
+@{@"title": @"分组名称",
+  @"subtitle": @"填写格式：分组1#分组2",
+  @"type": @"text",
+  @"key": @"BarBadgeName",
+  @"dependsOn": @"HideGroupBarBadge",
+  @"parent": @"RadiusSettings",
+  @"subpageSection": @"隐藏设置",
+  @"icon": @"textformat"}
+
+---
+
+4. 下拉菜单（dropdown）
+说明
+用于从预定义选项中选择一个值，点击进入选择界面，副标题显示当前选中值。
+
+参数
+ - key (NSString)：配置项键。
+示例：@"theme"
+ - options (NSArray)：可选值数组。
+示例：@[@"系统默认", @"浅色", @"深色"]
+ - action (NSString, 可选)：触发动作（如 selectTheme）。
+示例：@"selectTheme"
+
+使用实例
+@{@"title": @"主题模式",
+  @"type": @"dropdown",
+  @"key": @"theme",
+  @"options": @[@"系统默认", @"浅色", @"深色"],
+  @"action": @"selectTheme",
+  @"icon": @"sun.max"}
+
+---
+
+5. 子页面（subpage）
+说明
+用于导航到子页面，点击进入后显示该子页面的设置项。
+
+参数
+ - key (NSString)：子页面键。
+示例：@"RadiusSettings"
+
+使用实例
+@{@"title": @"分组栏调整",
+  @"subtitle": @"调整ThemeBox的分组栏",
+  @"type": @"subpage",
+  @"key": @"RadiusSettings",
+  @"icon": @"rectangle.topthird.inset.filled"}
+
+---
+
+6. 按钮（button）
+说明
+用于触发特定动作，点击执行操作。
+
+参数
+ - action (NSString)：按钮动作。
+示例：@"clearCache"
+ - rightValue (NSString, 可选)：在cell右边显示值，默认为空。
+示例：@"1.0-0"
+
+使用实例
+@{@"title": @"清除缓存",
+  @"subtitle": @"当前本地缓存为 X.XX MB",
+  @"type": @"button",
+  @"action": @"clearCache",
+  @"icon": @"trash",
+  @"color": @"systemRedColor"}
+
+---
+
+7. 普通项（normal）
+说明
+用于显示信息或导航动作，点击进入特定页面。
+
+参数
+ - action (NSString)：触发的动作。
+示例：@"openAbout"
+ - rightValue (NSString, 可选)：在cell右边显示值，默认为空。
+示例：@"1.0-0"
+
+使用实例
+@{@"title": @"关于插件",
+  @"subtitle": WCName " " WCVersion,
+  @"type": @"normal",
+  @"action": @"openAbout",
+  @"icon": @"info.circle"}
+
+---
+
+8.颜色选择器（colorPicker）
+说明
+用于选择浅色和深色模式的颜色，支持动态显示一个或两个颜色块（UIColorWell），选择结果以十六进制格式（#RRGGBBAA）保存。
+
+参数
+ - lightKey(NSString, 可选)：浅色模式颜色键，存储十六进制颜色值。
+示例：@"LightBackgroundColor"
+ - darkKey(NSString, 可选)：深色模式颜色键，存储十六进制颜色值。
+示例：@"DarkBackgroundColor"
+
+使用实例
+@{"title": "背景颜色",
+  @"subtitle": "选择浅色和深色模式的背景颜色",
+  @"type": "colorPicker",
+  @"lightKey": "LightBackgroundColor",
+  @"darkKey": "DarkBackgroundColor",
+  @"icon": "paintpalette"}
+
+------------------------------------
+
+WCSettings 函数用法说明
+
+ 1.WCSettingsFilePath
+   -用途: 获取配置文件路径。
+   -返回值: 配置文件路径字符串。
+   -代码示例:
+   objective-c
+     NSString *path = WCSettingsFilePath();
+   
+
+ 2.WCLoadConfig
+   -用途: 加载配置文件内容。
+   -返回值: 配置文件的字典内容。
+   -代码示例:
+   objective-c
+     NSDictionary *config = WCLoadConfig();
+   
+
+ 3.WCSettingBool
+   -用途: 获取布尔类型的配置值。
+   -参数:
+     - key: 配置项的键。
+   -返回值: 布尔值。
+   -代码示例:
+   objective-c
+     BOOL isEnabled = WCSettingBool(@"EnableGroupBarRadius");
+   
+
+ 4.WCSettingText
+   -用途: 获取字符串类型的配置值。
+   -参数:
+     - key: 配置项的键。
+   -返回值: 字符串值。
+   -代码示例:
+   objective-c
+     NSString *text = WCSettingText(@"theme");
+   
+
+ 5.WCSettingNumber
+   -用途: 获取数字类型的配置值。
+   -参数:
+     - key: 配置项的键。
+   -返回值: 数字值（double 类型）。
+   -代码示例:
+   objective-c
+     double value = WCSettingNumber(@"BarRadius");
+   
+
+ 6.WCSettingBoolDefault
+   -用途: 获取布尔类型的配置值，带默认值。
+   -参数:
+     - key: 配置项的键。
+     - defaultValue: 默认值。
+   -返回值: 布尔值。
+   -代码示例:
+   objective-c
+     BOOL isEnabled = WCSettingBoolDefault(@"EnableGroupBarRadius", NO);
+   
+
+ 7.WCSettingTextDefault
+   -用途: 获取字符串类型的配置值，带默认值。
+   -参数:
+     - key: 配置项的键。
+     - defaultValue: 默认值。
+   -返回值: 字符串值。
+   -代码示例:
+   objective-c
+     NSString *text = WCSettingTextDefault(@"theme", @"系统默认");
+   
+
+ 8.WCSettingNumberDefault
+   -用途: 获取数字类型的配置值，带默认值。
+   -参数:
+     - key: 配置项的键。
+     - defaultValue: 默认值。
+   -返回值: 数字值（double 类型）。
+   -代码示例:
+   objective-c
+     double value = WCSettingNumberDefault(@"BarRadius", @(18));
+
+9.WCSettingColor
++ (NSString *)hexStringFromColor:(UIColor *)color
+用途: 将 UIColor 转换为带透明度的十六进制字符串（ARGB 格式）。
+
+参数:
+   - color: 需要转换的 UIColor 对象。
+返回值: 表示颜色的十六进制字符串（格式 #RRGGBBAA，如 #FF0000FF 表示不透明红色）。
+
+代码示例:
+UIColor *redColor = [UIColor redColor];
+NSString *hex = [WCSettingColor hexStringFromColor:redColor];
+// hex = "#FF0000FF"
+
++ (UIColor *)colorFromHexString:(NSString *)hexString
+用途: 将十六进制颜色字符串转换为 UIColor 对象。
+
+参数:
+   - hexString: 十六进制字符串，支持 #RRGGBB 或 #RRGGBBAA 格式。
+返回值: 转换得到的 UIColor 对象。如果输入不合法，则返回白色。
+
+代码示例:
+UIColor *color1 = [WCSettingColor colorFromHexString:@"#00FF00"];
+// color1 = 绿色 (不透明)
+UIColor *color2 = [WCSettingColor colorFromHexString:@"#0000FF80"];
+// color2 = 半透明蓝色
+   
