@@ -1,37 +1,41 @@
-# 基本配置
-TARGET = iphone:clang:latest:15.0
+SYSROOT = $(THEOS)/sdks/iPhoneOS16.5.sdk
+TARGET = iphone:clang:16.5:14.0
 ARCHS = arm64 arm64e
 
-DEBUG = 0
+ifeq ($(SCHEME),roothide)
+    export THEOS_PACKAGE_SCHEME = roothide
+else ifeq ($(SCHEME),rootless)
+    export THEOS_PACKAGE_SCHEME = rootless
+endif
 
-# 注入目标应用
+export DEBUG = 0
+
 INSTALL_TARGET_PROCESSES = WeChat
 
-# Tweak 配置
+PACKAGE_VERSION = 1.0-0
 TWEAK_NAME = WeChatHook
+
+
+WeChatHook_CFLAGS = -fobjc-arc -mllvm -enable-allobf
 WeChatHook_FILES = WeChatHook.xm WCHookSettingViewController.xm WCHookUtils.m SearchGroupBarRadius.xm
-WeChatHook_CFLAGS = -fobjc-arc -w
-WeChatHook_FRAMEWORKS = UIKit
 
-# Logos 默认生成器
-WeChatHook_LOGOS_DEFAULT_GENERATOR = internal
-THEOS_STRICT_LOGOS = 0
-ERROR_ON_WARNINGS = 0
-
-# 编译设置
-# 如果你的项目不使用 C++，下面两行可以删掉
-CXXFLAGS += -std=c++11
-CCFLAGS += -std=c++11
-
-# 设备信息（可选）
-THEOS_DEVICE_IP = 192.168.31.222
-THEOS_DEVICE_PORT = 22
-
-# Include Theos Makefiles
 include $(THEOS)/makefiles/common.mk
 include $(THEOS_MAKE_PATH)/tweak.mk
 
-# 自定义 clean
+THEOS_DEVICE_IP = 192.168.31.227
+THEOS_DEVICE_PORT = 22
+
 clean::
 	@echo -e "\033[31m==>\033[0m Cleaning packages…"
-	@rm -rf .theos packages
+	@rm -rf .theos
+	@rm -rf packages/*
+
+after-package::
+	@if [ "$(THEOS_PACKAGE_SCHEME)" = "rootless" ]; then \
+	echo -e "\033[31m==>\033[0m Installing package to device…"; \
+	DEB_FILE=$$(ls -t packages/*.deb | head -1); \
+	PACKAGE_NAME=$$(basename "$$DEB_FILE" | cut -d'_' -f1); \
+	ssh root@$(THEOS_DEVICE_IP) "rm -rf /tmp/$${PACKAGE_NAME}.deb"; \
+	scp "$$DEB_FILE" root@$(THEOS_DEVICE_IP):/tmp/$${PACKAGE_NAME}.deb; \
+	ssh root@$(THEOS_DEVICE_IP) "dpkg -i --force-overwrite /tmp/$${PACKAGE_NAME}.deb && rm -f /tmp/$${PACKAGE_NAME}.deb"; \
+	fi
