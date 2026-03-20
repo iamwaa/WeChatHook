@@ -4,9 +4,6 @@
 TARGET = iphone:clang:latest:14.0
 ARCHS = arm64 arm64e
 
-#export THEOS=/Users/huami/theos
-#export THEOS_PACKAGE_SCHEME=roothide
-
 # 根据参数选择打包方案
 ifeq ($(SCHEME),roothide)
     export THEOS_PACKAGE_SCHEME = roothide
@@ -29,13 +26,13 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = WeChatHook
 
-DYYY_FILES = WeChatHook.xm WCHookSettingViewController.xm WCHookUtils.m SearchGroupBarRadius.xm
-DYYY_CFLAGS = -fobjc-arc -w
-DYYY_LDFLAGS = -weak_framework AVFAudio
-DYYY_FRAMEWORKS = CoreAudio
+WeChatHook_FILES = WeChatHook.xm WCHookSettingViewController.xm WCHookUtils.m SearchGroupBarRadius.xm
+WeChatHook_CFLAGS = -fobjc-arc -w
+WeChatHook_LDFLAGS = -weak_framework AVFAudio
+WeChatHook_FRAMEWORKS = CoreAudio
 CXXFLAGS += -std=c++11
 CCFLAGS += -std=c++11
-DYYY_LOGOS_DEFAULT_GENERATOR = internal
+WeChatHook_LOGOS_DEFAULT_GENERATOR = internal
 
 export THEOS_STRICT_LOGOS=0
 export ERROR_ON_WARNINGS=0
