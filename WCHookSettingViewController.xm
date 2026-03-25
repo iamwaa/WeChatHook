@@ -66,7 +66,6 @@
                 @"section": @"插件设置",
                 @"items": @[
                     @{@"title": @"主题模式", @"type": @"dropdown", @"key": @"theme", @"options": @[@"跟随系统", @"浅色模式", @"深色模式"], @"action": @"showThemeSelectionForItem:atIndexPath:", @"icon": @"sun.max"},
-                    @{@"title": @"插件收纳", @"subtitle": @"在<我的-插件>页面显示插件设置入口", @"type": @"switch", @"key": @"WCPlugins", @"defaultValue": @(YES), @"icon": @"archivebox"},
                     @{@"title": @"导出配置", @"subtitle": @"分享或保存配置", @"type": @"button", @"action": @"exportConfig", @"icon": @"square.and.arrow.up", @"color": @"systemRedColor"},
                     @{@"title": @"导入配置", @"subtitle": @"从文件导入配置", @"type": @"button", @"action": @"importConfig", @"icon": @"square.and.arrow.down", @"color": @"systemRedColor"},
                     @{@"title": @"重置配置", @"subtitle": @"恢复默认设置", @"type": @"button", @"action": @"resetConfig", @"icon": @"arrow.triangle.2.circlepath", @"color": @"systemRedColor"}
@@ -1158,11 +1157,12 @@
 @end
 
 #pragma mark - 插件设置入口
+static BOOL g_WCPluginsMgrRegistered = NO;
+
 %hook NewSettingViewController
 
 - (void)reloadTableData {
-    BOOL isWCPluginsEnabled = WCSettingBoolDefault(@"WCPlugins", YES);
-    if (isWCPluginsEnabled && NSClassFromString(@"WCPluginsMgr")) {
+    if (g_WCPluginsMgrRegistered) {
         %orig;
         return;
     }
@@ -1196,16 +1196,17 @@
 %end
 
 %ctor {
-    BOOL isWCPluginsEnabled = WCSettingBoolDefault(@"WCPlugins", YES);
-    if (isWCPluginsEnabled && !NSClassFromString(@"WCPluginsMgr")) {
-        return;
-    }
-    if (isWCPluginsEnabled && NSClassFromString(@"WCPluginsMgr")) {
+    Class pluginsMgrClass = NSClassFromString(@"WCPluginsMgr");
+    if (pluginsMgrClass) {
         WCPluginsMgr *mgr = [objc_getClass("WCPluginsMgr") sharedInstance];
         if (mgr) {
             [mgr registerControllerWithTitle:WCName
                                     version:WCVersion
                                  controller:@"WCHookSettingViewController"];
+            g_WCPluginsMgrRegistered = YES;
+            return;
         }
-    } 
+    }
+
+    g_WCPluginsMgrRegistered = NO;
 }
