@@ -25,10 +25,6 @@
 @interface ThemeBadgeView : UIView
 @end
 
-#pragma mark - 隐藏我的二维码
-@interface MMUIButton : UIButton
-@end
-
 #pragma mark - 隐藏我的状态
 @interface TextStatePublishEntryButton : UIButton
 @end
@@ -61,7 +57,7 @@
 @end
 
 #pragma mark - 长按输入框搜索表情
-@interface MMGrowTextView : UITextView
+@interface MMUIButton : UIButton
 - (void)tw_installEmojiLongPress;
 - (UIView *)tw_findSearchCellInView:(UIView *)view;
 @end
@@ -70,7 +66,7 @@
 - (void)onExpressionButtonClicked:(id)sender;
 @end
 
-@interface MMGrowTextView (TWGesture) <UIGestureRecognizerDelegate>
+@interface MMUIButton (TWGesture) <UIGestureRecognizerDelegate>
 @end
 
 #pragma mark - 长按发送照片

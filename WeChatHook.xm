@@ -449,7 +449,7 @@ static void TriggerReplyFromView(UIView *sourceView) {
     SEL sel = NSSelectorFromString(@"onShowMsgReplyMenuItem:");
     if ([cell respondsToSelector:sel]) {
         [cell performSelector:sel withObject:nil];
-
+        // 触感反馈
         UIImpactFeedbackGenerator *gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
         [gen prepare];
         [gen impactOccurred];
@@ -590,34 +590,13 @@ static void AddSwipeGestureIfNeeded(UIView *view) {
 #pragma mark - 长按输入框搜索表情
 static char kEmojiLongPressKey;
 
-%hook MMGrowTextView
-
-- (instancetype)initWithFrame:(CGRect)frame textContainer:(NSTextContainer *)textContainer {
-    self = %orig;
-    if (self) [self tw_installEmojiLongPress];
-    return self;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = %orig;
-    if (self) [self tw_installEmojiLongPress];
-    return self;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)coder {
-    self = %orig;
-    if (self) [self tw_installEmojiLongPress];
-    return self;
-}
-
-- (void)awakeFromNib {
-    %orig;
-    [self tw_installEmojiLongPress];
-}
+%hook MMUIButton
 
 - (void)didMoveToWindow {
     %orig;
-    [self tw_installEmojiLongPress];
+    if ([self.accessibilityLabel isEqualToString:@"表情"]) {
+        [self tw_installEmojiLongPress];
+    }
 }
 
 %new
@@ -667,6 +646,10 @@ static char kEmojiLongPressKey;
                 NSIndexPath *indexPath = [collectionView indexPathForCell:(UICollectionViewCell *)cellView];
                 if (indexPath && [collectionView.delegate respondsToSelector:@selector(collectionView:didSelectItemAtIndexPath:)]) {
                     [collectionView.delegate collectionView:collectionView didSelectItemAtIndexPath:indexPath];
+                    // 触感反馈
+                    UIImpactFeedbackGenerator *gen = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
+                    [gen prepare];
+                    [gen impactOccurred];
                 }
             }
         }

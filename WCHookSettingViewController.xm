@@ -19,12 +19,18 @@
                 @"section": @"外观设置",
                 @"items": @[
                     @{@"title": @"首页Cell圆角", @"subtitle": @"为首页cell增加圆角风格", @"type": @"subpage", @"key": @"HomeRadiusSettings", @"icon": @"capsule"},
-                    @{@"title": @"启用首页Cell圆角", @"type": @"switch", @"key": @"EnableHomeCellRadius", @"parent": @"HomeRadiusSettings", @"icon": @"capsule", @"subpageSection":@"圆角设置"},
-                    @{@"title": @"圆角度", @"type": @"slider", @"key": @"CellRadius", @"minValue": @(0), @"maxValue": @(30), @"defaultValue": @(18), @"showPercentage": @(NO), @"dependsOn": @"EnableHomeCellRadius", @"parent": @"HomeRadiusSettings", @"icon": @"slider.horizontal.below.rectangle", @"subpageSection":@"圆角设置"},
-                    @{@"title": @"左右边距", @"type": @"slider", @"key": @"CellDistance", @"minValue": @(0), @"maxValue": @(30), @"defaultValue": @(15), @"showPercentage": @(NO), @"dependsOn": @"EnableHomeCellRadius", @"parent": @"HomeRadiusSettings", @"icon": @"rectangle.portrait.arrowtriangle.2.outward", @"subpageSection":@"圆角设置"},
-                    @{@"title": @"上下间距", @"type": @"slider", @"key": @"CellSpacing", @"minValue": @(0), @"maxValue": @(30), @"defaultValue": @(15), @"showPercentage": @(NO), @"dependsOn": @"EnableHomeCellRadius", @"parent": @"HomeRadiusSettings", @"icon": @"rectangle.arrowtriangle.2.outward", @"subpageSection":@"圆角设置"},
-                    @{@"title": @"Cell背景颜色", @"subtitle": @"选择浅色和深色模式的背景颜色", @"type": @"colorPicker", @"lightKey": @"CellLightColor", @"darkKey": @"CellDarkColor", @"parent": @"HomeRadiusSettings", @"dependsOn": @"EnableHomeCellRadius", @"icon": @"paintpalette", @"subpageSection":@"圆角设置"},
-                    @{@"title": @"兼容替换搜索", @"subtitle": @"兼容ThemeBox的替换搜索分组栏", @"type": @"switch", @"key": @"EnableSearchGroupBarRadius", @"parent": @"HomeRadiusSettings", @"dependsOn": @"EnableHomeCellRadius", @"icon": @"rectangle.topthird.inset.filled", @"subpageSection":@"增强设置"}
+                    @{@"title": @"启用首页Cell圆角", @"type": @"switch", @"key": @"EnableHomeCellRadius", @"icon": @"capsule", 
+                                @"parent": @"HomeRadiusSettings", @"subpageSection":@"圆角设置"},
+                    @{@"title": @"圆角度", @"type": @"slider", @"key": @"CellRadius", @"minValue": @(0), @"maxValue": @(30), @"defaultValue": @(18), @"showPercentage": @(NO), @"dependsOn": @"EnableHomeCellRadius", @"icon": @"slider.horizontal.below.rectangle", 
+                                @"parent": @"HomeRadiusSettings", @"subpageSection":@"圆角设置"},
+                    @{@"title": @"左右边距", @"type": @"slider", @"key": @"CellDistance", @"minValue": @(0), @"maxValue": @(30), @"defaultValue": @(15), @"showPercentage": @(NO), @"dependsOn": @"EnableHomeCellRadius", @"icon": @"rectangle.portrait.arrowtriangle.2.outward", 
+                                @"parent": @"HomeRadiusSettings", @"subpageSection":@"圆角设置"},
+                    @{@"title": @"上下间距", @"type": @"slider", @"key": @"CellSpacing", @"minValue": @(0), @"maxValue": @(30), @"defaultValue": @(15), @"showPercentage": @(NO), @"dependsOn": @"EnableHomeCellRadius", @"icon": @"rectangle.arrowtriangle.2.outward", 
+                                @"parent": @"HomeRadiusSettings", @"subpageSection":@"圆角设置"},
+                    @{@"title": @"Cell背景颜色", @"subtitle": @"选择浅色和深色模式的背景颜色", @"type": @"colorPicker", @"lightKey": @"CellLightColor", @"darkKey": @"CellDarkColor", @"dependsOn": @"EnableHomeCellRadius", @"icon": @"paintpalette", 
+                                @"parent": @"HomeRadiusSettings", @"subpageSection":@"圆角设置"},
+                    @{@"title": @"兼容替换搜索", @"subtitle": @"兼容ThemeBox的替换搜索分组栏", @"type": @"switch", @"key": @"EnableSearchGroupBarRadius", @"dependsOn": @"EnableHomeCellRadius", @"icon": @"rectangle.topthird.inset.filled", 
+                                @"parent": @"HomeRadiusSettings", @"subpageSection":@"增强设置"}
                 ]
             },
             @{
@@ -44,7 +50,7 @@
                     @{@"title": @"置顶显示时间", @"subtitle": @"在置顶收藏文案末尾显示实时时间", @"type": @"switch", @"key": @"EnableTopFavoritesAddTime", @"icon": @"clock"},
                     @{@"title": @"左滑引用回复", @"subtitle": @"左滑<消息气泡>快速引用回复", @"type": @"switch", @"key": @"EnableLeftSwipeReply", @"icon": @"quote.bubble.rtl"},
                     @{@"title": @"右滑撤回消息", @"subtitle": @"右滑<发出的消息气泡>快速撤回消息", @"type": @"switch", @"key": @"EnableRightSwipeRevoke", @"dependsOn": @"EnableLeftSwipeReply", @"icon": @"arrow.uturn.forward"},
-                    @{@"title": @"长按搜索表情", @"subtitle": @"长按<聊天输入框>快速搜索表情", @"type": @"switch", @"key": @"EnableLongPressSearchEmoji", @"icon": @"smiley"},
+                    @{@"title": @"长按搜索表情", @"subtitle": @"长按<表情>快速搜索表情", @"type": @"switch", @"key": @"EnableLongPressSearchEmoji", @"icon": @"smiley"},
                     @{@"title": @"长按发送照片", @"subtitle": @"长按<照片/截屏>悬浮按钮自动发送", @"type": @"switch", @"key": @"EnableLongPressSendPhoto", @"icon": @"photo.stack"},
                     @{@"title": @"通话回拨确认", @"subtitle": @"<语音/视频>通话回拨二次确认", @"type": @"switch", @"key": @"EnableCallBackConfirm",  @"icon": @"phone.badge.checkmark"},
                     @{@"title": @"拍一拍确认", @"subtitle": @"双击<头像>拍一拍二次确认", @"type": @"switch", @"key": @"EnableDoubleClickConfirm",  @"icon": @"person.crop.circle.badge.checkmark"},
@@ -57,8 +63,10 @@
                 @"section": @"其它设置",
                 @"items": @[
                     @{@"title": @"热更新设置", @"subtitle": @"调整动态下发资源", @"type": @"subpage", @"key": @"HotUpdatesSettings", @"icon": @"icloud"},
-                    @{@"title": @"禁用热更新", @"subtitle": @"@Netskao", @"type": @"switch", @"key": @"DisableHotUpdates", @"parent": @"HotUpdatesSettings", @"icon": @"xmark.icloud", @"color": @"systemRedColor"},
-                    @{@"title": @"聊天实况照片", @"subtitle": @"仅支持8.0.57+  @Netskao", @"type": @"switch", @"key": @"EnableChatLivePhotos", @"parent": @"HotUpdatesSettings", @"icon": @"livephoto"},
+                    @{@"title": @"禁用热更新", @"subtitle": @"@Netskao", @"type": @"switch", @"key": @"DisableHotUpdates", @"icon": @"xmark.icloud", @"color": @"systemRedColor", 
+                                @"parent": @"HotUpdatesSettings"},
+                    @{@"title": @"聊天实况照片", @"subtitle": @"仅支持8.0.57+  @Netskao", @"type": @"switch", @"key": @"EnableChatLivePhotos", @"icon": @"livephoto", 
+                                @"parent": @"HotUpdatesSettings"},
                     @{@"title": @"清理缓存", @"subtitle": @"清理临时文件和缓存数据", @"type": @"button", @"action": @"clearCache", @"rightValue": @"计算中", @"icon": @"trash", @"color": @"systemRedColor"}
                 ]
             },
